@@ -126,6 +126,32 @@ def gerar_lista_adjacencia(G):
             lista[u].append((v, peso))
     return lista
 
+def gerar_dfs_modificada(G, start, end, k):
+    path = [] 
+
+    def dfs(atual, destino, visitado, caminho):
+        if len(caminho) - 1 > k:
+            return
+
+        if atual == destino:
+            path.append(caminho.copy())
+            print(caminho)
+            return
+
+        for vizinho in G.neighbors(atual):
+            if vizinho not in visitado:
+                visitado.add(vizinho)
+                caminho.append(vizinho)
+
+                dfs(vizinho, destino, visitado, caminho)
+
+                caminho.pop()
+                visitado.remove(vizinho)
+
+    visitado = set([start])
+    dfs(start, end, visitado, [start])
+
+    return len(path)
 
 
 # -------------------------------
@@ -134,7 +160,7 @@ def gerar_lista_adjacencia(G):
 if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = "C:\\Users\\Sorar Santos\\Documents\\programação (VSCode)\\TeoriaDosGrafos"
-    nome_arquivo = "grafo01.txt"  # Arquivo de entrada
+    nome_arquivo = "grafo02.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
 
@@ -152,7 +178,13 @@ if __name__ == "__main__":
     for vertice, vizinhos in lista_adj.items():
         print(f"{vertice}: {vizinhos}")
 
-    
+    k = 2
+    start = 'A'
+    end = 'C'
+
+    print(f"\nCaminhos de '{start}' para '{end}' com no máximo {k} arestas:")
+    num_caminhos = gerar_dfs_modificada(G, start, end, k)
+    print(f"\nNúmero total de caminhos encontrados: {num_caminhos}")
 
     # Visualizar grafo
     visualizar_grafo(G, ponderado)
