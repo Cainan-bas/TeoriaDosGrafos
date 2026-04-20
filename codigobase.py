@@ -105,13 +105,9 @@ def visualizar_grafo(G, ponderado=False): # NOSONAR
 # -------------------------------
 if __name__ == "__main__":
     # Ler grafo a partir de arquivo
-    #Diretorio do computador
-    system_dir = "C:\\Users\\Sorar Santos\\Documents\\programação (VSCode)\\TeoriaDosGrafos"
+    system_dir = os.path.dirname(__file__)
     
-    # Diretorio do notebook
-    #system_dir = "C:\\Users\\caina\\Documents\\Arquivos_VScode\\PythonProjects\\teoria_dos_grafos"
-    
-    nome_arquivo = "grafo03.txt"  # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo03.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
 
@@ -120,6 +116,7 @@ if __name__ == "__main__":
     for linha in matriz_adj:
         print(linha)
 
+    # Componentes Fortemente Conectadas em Dígrafos
     componentes = dfs_kosaraju.dfs_kosaraju(G)
     print("\nComponentes Fortemente Conexos:")
     for linha in componentes:
