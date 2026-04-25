@@ -9,6 +9,7 @@ from numpy import indices
 import dfs_kosaraju as dfs_kosaraju
 import matrizes as matriz
 import dfs as dfs
+import dijkstra as dijkstra
 
 def ler_grafo_arquivo(nome_arquivo):
     """
@@ -107,20 +108,20 @@ if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
     
-    nome_arquivo = "arquivos/grafo03.txt"  # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo05.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
 
-    print("\nMatriz de Adjacência:")
-    matriz_adj = matriz.gerar_matriz_adjacencia(G)
-    for linha in matriz_adj:
-        print(linha)
+    #Print do resultado do Dijkstra
+    #txt de dijkstra grafo05
+    if ponderado:
+        print("\nDistâncias a partir do vértice 'A' usando Dijkstra:")
+        distancias, pais = dijkstra.dijkstra(G, 'A')
+        
+        dijkstra.print_dijkstra_distancias(distancias)
+        print("\nCaminho mais curto de 'A' para 'E':")
+        dijkstra.print_dijkstra_caminho(pais, 'E')
 
-    # Componentes Fortemente Conectadas em Dígrafos
-    componentes = dfs_kosaraju.dfs_kosaraju(G)
-    print("\nComponentes Fortemente Conexos:")
-    for linha in componentes:
-        print(linha)
 
     # Visualizar o grafo
     visualizar_grafo(G, ponderado)
