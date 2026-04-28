@@ -6,7 +6,6 @@ import os
 
 from numpy import indices
 
-import dfs_kosaraju as dfs_kosaraju
 import matrizes as matriz
 import dfs as dfs
 import dijkstra as dijkstra
@@ -108,9 +107,11 @@ if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
     
-    nome_arquivo = "arquivos/grafo05.txt"  # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo03.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
+    
+    
 
     #Print do resultado do Dijkstra
     #txt de dijkstra grafo05
