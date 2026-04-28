@@ -1,5 +1,13 @@
 import networkx as nx
 
+#------------------------------------
+# SSSP - Single Source Shortest Path 
+#------------------------------------
+
+#-------------------------------------------------------
+# Algoritmo de dijkstra para encontrar caminhos mínimos
+#-------------------------------------------------------
+
 def dijkstra(G, inicio):
 
     visitados = set()
@@ -40,3 +48,7 @@ def print_dijkstra_distancias(dist):
     print(f"\nDistâncias a partir do vértice {list(dist.keys())[0]}:")
     for vertice, distancia in dist.items():
         print(f"Distância até '{vertice}': {distancia}")
+
+#----------------------------------------------------------
+# Algoritmo de Bellman-Ford para encontrar caminhos mínimos
+#-----------------------------------------------------------

@@ -8,7 +8,7 @@ from numpy import indices
 
 import matrizes as matriz
 import dfs as dfs
-import dijkstra as dijkstra
+import sssp as sssp
 
 def ler_grafo_arquivo(nome_arquivo):
     """
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
     
-    nome_arquivo = "arquivos/grafo03.txt"  # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo05.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
     
@@ -117,11 +117,11 @@ if __name__ == "__main__":
     #txt de dijkstra grafo05
     if ponderado:
         print("\nDistâncias a partir do vértice 'A' usando Dijkstra:")
-        distancias, pais = dijkstra.dijkstra(G, 'A')
+        distancias, pais = sssp.dijkstra(G, 'A')
         
-        dijkstra.print_dijkstra_distancias(distancias)
+        sssp.print_dijkstra_distancias(distancias)
         print("\nCaminho mais curto de 'A' para 'E':")
-        dijkstra.print_dijkstra_caminho(pais, 'E')
+        sssp.print_dijkstra_caminho(pais, 'E')
 
 
     # Visualizar o grafo
