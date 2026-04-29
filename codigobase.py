@@ -107,21 +107,28 @@ if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
     
-    nome_arquivo = "arquivos/grafo05.txt"  # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo07.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
+        
     
-    
-
     #Print do resultado do Dijkstra
     #txt de dijkstra grafo05
     if ponderado:
         print("\nDistâncias a partir do vértice 'A' usando Dijkstra:")
         distancias, pais = sssp.dijkstra(G, 'A')
-        
-        sssp.print_dijkstra_distancias(distancias)
+        sssp.print_sssp_distancias(distancias)
         print("\nCaminho mais curto de 'A' para 'E':")
-        sssp.print_dijkstra_caminho(pais, 'E')
+        sssp.print_sssp_caminho(pais, 'E')
+        
+        
+        print("\nDistancias a partir do vertice 'A' usando bellman ford:")
+        dist, dad = sssp.bellman_ford(G, 'A')
+        if dad is not None:
+            sssp.print_sssp_distancias(dist)
+            print("\nCaminho mais curto de 'A' para 'E':")
+            sssp.print_sssp_caminho(dad, 'E')
+        
 
 
     # Visualizar o grafo

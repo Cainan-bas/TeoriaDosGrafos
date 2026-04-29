@@ -30,7 +30,38 @@ def dijkstra(G, inicio):
     
     return dist, pai
 
-def print_dijkstra_caminho(pai, destino):
+#----------------------------------------------------------
+# Algoritmo de Bellman-Ford para encontrar caminhos mínimos
+#-----------------------------------------------------------
+
+def bellman_ford(G, inicio):
+    pai = {v: None for v in G.nodes()}
+    dist = {v: float('inf') for v in G.nodes()}
+    
+    dist[inicio] = 0
+    
+    for i in range (len(G.nodes)-1):
+        for u, v in G.edges():
+            peso = G[u][v].get('weight',1)
+            if dist[v] > dist[u] + peso:
+                dist[v] = dist[u] + peso
+                pai[v] = u
+    
+    for i in range (len(G.nodes)-1):
+        for u, v in G.edges():
+            peso = G[u][v].get('weight',1)
+            if dist[v] > dist[u] + peso:
+                print("Existe caminho negativo")
+                return None ,None
+    
+    return dist, pai
+
+
+#----------------------------------------------------------
+# Print de melhor caminho e distancias dos algoritmos SSSP
+#-----------------------------------------------------------         
+
+def print_sssp_caminho(pai, destino):
     caminho = []
 
     if pai[destino] is None:
@@ -44,11 +75,7 @@ def print_dijkstra_caminho(pai, destino):
     print(" -> ".join(caminho))
 
 
-def print_dijkstra_distancias(dist):
+def print_sssp_distancias(dist):
     print(f"\nDistâncias a partir do vértice {list(dist.keys())[0]}:")
     for vertice, distancia in dist.items():
-        print(f"Distância até '{vertice}': {distancia}")
-
-#----------------------------------------------------------
-# Algoritmo de Bellman-Ford para encontrar caminhos mínimos
-#-----------------------------------------------------------
+        print(f"Distância até '{vertice}': {distancia}")   
