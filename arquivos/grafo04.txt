@@ -1,8 +1,8 @@
-D N
-X Y
-Y Z
-Z X
-W X
-W V
-V W
-V U
+G W
+X Y 1
+Y Z 2
+Z X 1
+W X 3
+W V 4
+V W 2
+V U 1

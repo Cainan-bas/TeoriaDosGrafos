@@ -8,7 +8,7 @@ import networkx as nx
 # Algoritmo de dijkstra para encontrar caminhos mínimos
 #-------------------------------------------------------
 
-def dijkstra(G, inicio, end):
+def dijkstra(G, inicio, destino):
 
     visitados = set()
     pai = {v: None for v in G.nodes()}; # Cria um dicionario com os vertices como chave e none como valor - {A: None}
@@ -21,9 +21,9 @@ def dijkstra(G, inicio, end):
         dist_ordenado = dict(sorted(dist.items(), key=lambda x: x[1])) 
 
         vertice_atual = [v[0] for v in dist_ordenado.items() if v[0] not in visitados][0]
-        print(f"Vertice atual - {vertice_atual}")
+        #print(f"Vertice atual - {vertice_atual}")
         
-        if vertice_atual == end:
+        if vertice_atual == destino:
             return dist, pai
 
         visitados.add(vertice_atual)

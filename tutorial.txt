@@ -1,0 +1,64 @@
+Tutorial de uso do arquivo sssp.py
+
+1. Objetivo
+
+O arquivo `sssp.py` contém duas implementações de algoritmos de caminho mínimo para grafos:
+- dijkstra(G, inicio, end)
+- bellman_ford(G, inicio)
+- print_sssp_caminho(pai, destino)
+- print_sssp_distancias(dist)
+
+2. Executando os algoritmos
+
+Foram usadas três grafos de exemplo fornecidos nos arquivos `grafo06.txt`, `grafo07.txt` e `grafo08.txt`.
+
+Sempre antes de rodar os algoritmos, é necessário mudar o grafo de entrada usado e definir os vértices de início e fim.
+
+- Exemplo de definição do grafo e execução dos dados de execução:
+    nome_arquivo = "arquivos/grafo06.txt"
+    inicio = 'A'
+    end = 'C'
+
+3. Executa Dijkstra
+distancias, pais = dijkstra(G, inicio, end)
+
+# Imprime o caminho a partir do dicionário de pais
+print_sssp_caminho(pais, end)
+
+# Imprime as distâncias calculadas
+print_sssp_distancias(distancias)
+
+4. Executa Bellman-Ford
+
+São usado os mesmos dados de entrada do algoritmo de Dijkatra, mas com o vértice de destino sendo usando apenas nos prints
+
+dist, dad = bellman_ford(G, inicio)
+
+# Para imprimir o caminho até um destino final
+print_sssp_caminho(dad, destino)
+
+# Imprime as distâncias calculadas
+print_sssp_distancias(dist)
+
+5. Como são os prints de saída
+
+- `print_sssp_caminho(pai, destino)`
+  - Se houver caminho, imprime algo como:
+    `A -> B -> C`
+  - Se não houver caminho, imprime:
+    `Não há caminho para 'X'.`
+
+- `print_sssp_distancias(dist)`
+  - Imprime as distâncias de cada vértice a partir do primeiro vértice no dicionário de distâncias.
+  - Exemplo de saída:
+    `Distâncias a partir do vértice A:`
+    `Distância até 'A': 0`
+    `Distância até 'B': 2`
+    `Distância até 'C': 3`
+
+6. Observações importantes
+
+- A função dijkstra recebe o grafo G, o vértice inicial inicio e o vértice final destino.
+- A função bellman_ford recebe o grafo G e o vértice inicial inicio.
+- Se o grafo tiver arestas sem peso definido, o peso padrão usado é 1.
+- bellman_ford detecta caminhos negativos e imprime "Existe caminho negativo' se encontrar um ciclo de peso negativo.

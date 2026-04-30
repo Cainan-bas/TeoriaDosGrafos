@@ -112,24 +112,23 @@ if __name__ == "__main__":
     G, ponderado = ler_grafo_arquivo(file)
         
     
-    #Print do resultado do Dijkstra e bellman ford
-    #txt de dijkstra grafo05
-    if ponderado:
-        saida = 'A'
-        destino = 'C'
-        print(f"\nDistâncias a partir do vértice {saida} usando Dijkstra:")
-        distancias, pais = sssp.dijkstra(G, saida, destino)
-        sssp.print_sssp_distancias(distancias)
-        print(f"\nCaminho mais curto de {saida} para {destino}:")
-        sssp.print_sssp_caminho(pais, destino)
+    
+    # if ponderado:
+    inicio = 'A'
+    destino = 'D'
+    print(f"\nDistâncias a partir do vértice {inicio} usando Dijkstra:")
+    distancias, pais = sssp.dijkstra(G, inicio, destino)
+    sssp.print_sssp_distancias(distancias)
+    print(f"\nCaminho mais curto de {inicio} para {destino}:")
+    sssp.print_sssp_caminho(pais, destino)
         
         
-        print(f"\nDistancias a partir do vertice {saida} usando bellman ford:")
-        dist, dad = sssp.bellman_ford(G, saida)
-        if dad is not None:
-            sssp.print_sssp_distancias(dist)
-            print(f"\nCaminho mais curto de {saida} para {destino}:")
-            sssp.print_sssp_caminho(dad, destino)
+    print(f"\nDistancias a partir do vertice {inicio} usando bellman ford:")
+    dist, dad = sssp.bellman_ford(G, inicio)
+    if dad is not None:
+        sssp.print_sssp_distancias(dist)
+        print(f"\nCaminho mais curto de {inicio} para {destino}:")
+        sssp.print_sssp_caminho(dad, destino)
         
 
 
