@@ -6,8 +6,8 @@ import os
 
 from numpy import indices
 
-import matrizes as matriz
-import dfs as dfs
+# import matrizes as matriz
+# import dfs as dfs
 import sssp as sssp
 
 def ler_grafo_arquivo(nome_arquivo):
@@ -113,9 +113,13 @@ if __name__ == "__main__":
         
     
     
-    # if ponderado:
-    inicio = 'A'
-    destino = 'D'
+    print("\nDigite os vertices em letra maiuscula!")
+    print("Digite o vertice de inicio: ")
+    inicio = input()
+        
+    print("Digite o vertice de destino: ")
+    destino = input()
+    
     print(f"\nDistâncias a partir do vértice {inicio} usando Dijkstra:")
     distancias, pais = sssp.dijkstra(G, inicio, destino)
     sssp.print_sssp_distancias(distancias)
