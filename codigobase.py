@@ -6,9 +6,10 @@ import os
 
 from numpy import indices
 
-# import matrizes as matriz
-# import dfs as dfs
+import matrizes as matriz
+import dfs as dfs
 import sssp as sssp
+import mst as mst
 
 def ler_grafo_arquivo(nome_arquivo):
     """
@@ -107,38 +108,20 @@ if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
     
-    nome_arquivo = "arquivos/grafo05.txt"  # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo09.txt"  # Arquivo de entrada
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
         
-    
-    
-    print("\nDigite os vertices em letra maiuscula!")
-    print("Digite o vertice de inicio: ")
-    inicio = input()
-        
-    print("Digite o vertice de destino: ")
-    destino = input()
-    
-    print(f"\nDistâncias a partir do vértice {inicio} usando Dijkstra:")
-    distancias, pais = sssp.dijkstra(G, inicio, destino)
-    sssp.print_sssp_distancias(distancias)
-    print(f"\nCaminho mais curto de {inicio} para {destino}:")
-    sssp.print_sssp_caminho(pais, destino)
-        
-        
-    print(f"\nDistancias a partir do vertice {inicio} usando bellman ford:")
-    dist, dad = sssp.bellman_ford(G, inicio)
-    if dad is not None:
-        sssp.print_sssp_distancias(dist)
-        print(f"\nCaminho mais curto de {inicio} para {destino}:")
-        sssp.print_sssp_caminho(dad, destino)
+    arvore_geradora_minima = mst.kruskal(G)
+    print("\n Arvore minima: ")
+    for u, v, data in arvore_geradora_minima.edges(data=True):
+        print(f"{u} - {v} (peso: {data['weight']})")
         
 
 
     # Visualizar o grafo
-    visualizar_grafo(G, ponderado)
-    plt.show()
+    # visualizar_grafo(G, ponderado)
+    # plt.show()
     
     
 
