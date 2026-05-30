@@ -108,7 +108,9 @@ if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
     
-    nome_arquivo = "arquivos/grafo09.txt"  # Arquivo de entrada
+    # Arquivo de entrada
+    nome_arquivo = "arquivos/grafo08.txt" # Altere para o nome do arquivo desejado
+    
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
         
@@ -121,7 +123,8 @@ if __name__ == "__main__":
 
     # Visualizar o grafo
     # visualizar_grafo(G, ponderado)
-    # plt.show()
+    mst.visualizar_grafo_arvore(G, arvore_geradora_minima, ponderado)
+    plt.show()    
     
     
 
