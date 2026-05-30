@@ -109,16 +109,22 @@ if __name__ == "__main__":
     system_dir = os.path.dirname(__file__)
     
     # Arquivo de entrada
-    nome_arquivo = "arquivos/grafo08.txt" # Altere para o nome do arquivo desejado
-    
+    nome_arquivo = "arquivos/grafo09.txt" # Altere para o nome do arquivo desejado
+
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
-        
+    
+    # Encontrar a árvore geradora mínima usando o algoritmo de Kruskal
     arvore_geradora_minima = mst.kruskal(G)
+    peso_total = 0
+    # Imprimir as arestas da árvore geradora mínima
     print("\n Arvore minima: ")
     for u, v, data in arvore_geradora_minima.edges(data=True):
         print(f"{u} - {v} (peso: {data['weight']})")
-        
+        peso_total += data['weight']
+
+    # Imprimir o peso total da árvore geradora mínima
+    print(f"Peso total da árvore geradora mínima: {peso_total}")    
 
 
     # Visualizar o grafo

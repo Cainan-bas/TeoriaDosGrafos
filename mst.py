@@ -7,21 +7,30 @@ import networkx as nx
 
 def kruskal(G):
     """Implementação do algoritmo de Kruskal para encontrar a árvore geradora mínima."""
+
+    # Cria um dicionário com as arestas e seus pesos, e outro para os vértices e seus grupos  
     lista_arestas = {v: G[v[0]][v[1]].get('weight', 1) for v in G.edges()}
     lista_vertices = {v: 0 for v in G.nodes()}
     lista_ordenada = dict(sorted(lista_arestas.items(), key=lambda x: x[1]))
     
     arvore_geradora_minima = nx.Graph()
     
+    # Itera sobre as arestas ordenadas por peso e adiciona à árvore geradora mínima se não formar ciclo
     cont = 1
     for v, u in lista_ordenada.keys():
+
+        # Se a árvore já tiver n-1 arestas, onde n é o número de vértices, ela está completa
         if len(arvore_geradora_minima.edges()) == len(G.nodes()) - 1:
             break
+
+        # Se ambos os vértices ainda não pertencem a nenhum grupo, cria um novo grupo para eles
         elif  lista_vertices[v] == 0 and lista_vertices[u] == 0:
             arvore_geradora_minima.add_edge(v, u, weight=G[v][u].get('weight', 1))
             lista_vertices[u] = cont
             lista_vertices[v] = cont
             cont += 1
+
+        # Se os vértices pertencem a grupos diferentes, une os grupos e adiciona a aresta à árvore
         elif lista_vertices[v] != lista_vertices[u]:
             arvore_geradora_minima.add_edge(v, u, weight=G[v][u].get('weight', 1))
 
@@ -38,12 +47,12 @@ def normalizar_grupos(lista_vertices, grupo1, grupo2):
     """Unifica os grupos de vértices para evitar ciclos."""
     grupo_normalizado = min(grupo1, grupo2)
 
+    # Atualiza os grupos dos vértices para o grupo unificado
     for v in lista_vertices:
         if lista_vertices[v] == grupo1 or lista_vertices[v] == grupo2:
             lista_vertices[v] = grupo_normalizado
     return lista_vertices
 
-    # fazer funcao de plot do grafo destacando as arestas da arvore geradora minima
 
 def visualizar_grafo_arvore(G, arvore=None, ponderado=False): # NOSONAR
     """Desenha o grafo destacando a árvore geradora mínima (se fornecida)."""
