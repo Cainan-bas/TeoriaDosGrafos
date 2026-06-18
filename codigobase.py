@@ -6,10 +6,11 @@ import os
 
 from numpy import indices
 
-import matrizes as matriz
-import dfs as dfs
-import sssp as sssp
-import mst as mst
+# import matrizes as matriz
+# import dfs as dfs
+# import sssp as sssp
+# import mst as mst
+import planaridade_boyer_myrvold as planaridade
 
 def ler_grafo_arquivo(nome_arquivo):
     """
@@ -109,27 +110,20 @@ if __name__ == "__main__":
     system_dir = os.path.dirname(__file__)
     
     # Arquivo de entrada
-    nome_arquivo = "arquivos/grafo09.txt" # Altere para o nome do arquivo desejado
-
+    # nome_arquivo = "arquivos/grafo_planar.txt" # Altere para o nome do arquivo desejado
+    nome_arquivo = "arquivos/grafo_planar_2.txt"
+    # nome_arquivo = "arquivos/grafo_k5.txt"
+    # nome_arquivo = "arquivos/grafo_k33.txt"
+    
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
-    
-    # Encontrar a árvore geradora mínima usando o algoritmo de Kruskal
-    arvore_geradora_minima = mst.kruskal(G)
-    peso_total = 0
-    # Imprimir as arestas da árvore geradora mínima
-    print("\n Arvore minima: ")
-    for u, v, data in arvore_geradora_minima.edges(data=True):
-        print(f"{u} - {v} (peso: {data['weight']})")
-        peso_total += data['weight']
 
-    # Imprimir o peso total da árvore geradora mínima
-    print(f"Peso total da árvore geradora mínima: {peso_total}")    
+    # Teste de planaridade
+    if G is not None and not G.is_directed():
+        planaridade.planaridade_boyer_myrvold(G)
 
-
-    # Visualizar o grafo
-    # visualizar_grafo(G, ponderado)
-    mst.visualizar_grafo_arvore(G, arvore_geradora_minima, ponderado)
+    # # Visualizar o grafo
+    visualizar_grafo(G, ponderado)
     plt.show()    
     
     
