@@ -10,7 +10,7 @@ from numpy import indices
 # import dfs as dfs
 # import sssp as sssp
 # import mst as mst
-import planaridade_boyer_myrvold as planaridade
+import conjuntos as conjuntos
 
 def ler_grafo_arquivo(nome_arquivo):
     """
@@ -110,21 +110,28 @@ if __name__ == "__main__":
     system_dir = os.path.dirname(__file__)
     
     # Arquivo de entrada
-    # nome_arquivo = "arquivos/grafo_planar.txt" # Altere para o nome do arquivo desejado
-    nome_arquivo = "arquivos/grafo_planar_2.txt"
-    # nome_arquivo = "arquivos/grafo_k5.txt"
-    # nome_arquivo = "arquivos/grafo_k33.txt"
+    nome_arquivo = "arquivos/grafo_conjuntos.txt"
+    # nome_arquivo = "arquivos/grafo_conjuntos2.txt"
     
     file = os.path.join(system_dir, nome_arquivo)
     G, ponderado = ler_grafo_arquivo(file)
 
-    # Teste de planaridade
+    # Conjunto estavel, clique e cobertura de vertices
     if G is not None and not G.is_directed():
-        planaridade.planaridade_boyer_myrvold(G)
+        conjunto_estavel = conjuntos.conjunto_estavel_guloso(G)
+        cobertura = conjuntos.cobertura_vertices(G, conjunto_estavel)
+        clique = conjuntos.clique_maximal(G)
 
-    # # Visualizar o grafo
-    visualizar_grafo(G, ponderado)
-    plt.show()    
+        pos = nx.spring_layout(G, seed=42)
+
+        conjuntos.visualizar_conjunto_estavel(G, conjunto_estavel, pos)
+        conjuntos.visualizar_clique(G, clique, pos)
+        conjuntos.visualizar_cobertura(G, cobertura, pos)
+
+        print("Conjunto estavel maximal:", conjunto_estavel)
+        print("Clique maximal:", clique)
+        print("Cobertura de vertices:", cobertura)
+    
     
     
 
