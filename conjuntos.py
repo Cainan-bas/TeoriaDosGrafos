@@ -5,7 +5,7 @@ import networkx as nx
 
 
 def conjunto_estavel_guloso(G):
-    """Calcula um conjunto estavel maximal pela heuristica de grau minimo."""
+    """Gera um conjunto estavel maximal."""
     grafo_trabalho = G.copy()
     conjunto_estavel = []
 
@@ -25,7 +25,7 @@ def conjunto_estavel_guloso(G):
 
 
 def cobertura_vertices(G, conjunto_estavel):
-    """Retorna V - S, onde S e um conjunto estavel."""
+    """Retorna a cobertura com a subtração dos vertices menos o conjunto estavel."""
     cobertura = []
 
     for vertice in G.nodes():
@@ -36,13 +36,13 @@ def cobertura_vertices(G, conjunto_estavel):
 
 
 def clique_maximal(G):
-    """Calcula uma clique maximal reutilizando a heuristica no complementar."""
+    """Gera o clique reutilizando a função do conjunto estavel e o grafo complementar."""
     grafo_complementar = gerar_grafo_complementar(G)
     return conjunto_estavel_guloso(grafo_complementar)
 
 
 def gerar_grafo_complementar(G):
-    """Cria manualmente o complementar de um grafo simples nao direcionado."""
+    """Cria o grafo complementar para usar no clique"""
     grafo_complementar = nx.Graph()
     vertices = list(G.nodes())
 
