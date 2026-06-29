@@ -1,0 +1,17 @@
+G W
+P T 7
+P U 3
+P V 6
+P W 4
+Q T 5
+Q U 8
+Q V 2
+Q W 6
+R T 9
+R U 4
+R V 7
+R W 3
+S T 6
+S U 5
+S V 4
+S W 8

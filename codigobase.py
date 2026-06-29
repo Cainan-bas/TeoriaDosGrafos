@@ -10,7 +10,8 @@ from numpy import indices
 # import dfs as dfs
 # import sssp as sssp
 # import mst as mst
-import conjuntos as conjuntos
+# import conjuntos as conjuntos
+import emparelhamento_hungaro as emparelhamento
 
 def ler_grafo_arquivo(nome_arquivo):
     """
@@ -108,31 +109,21 @@ def visualizar_grafo(G, ponderado=False): # NOSONAR
 if __name__ == "__main__":
     # Ler grafo a partir de arquivo
     system_dir = os.path.dirname(__file__)
-    
-    # Arquivo de entrada
-    nome_arquivo = "arquivos/grafo_conjuntos.txt"
-    # nome_arquivo = "arquivos/grafo_conjuntos2.txt"
+    # nome_arquivo = "arquivos/grafo_emparelhamento.txt"
+    nome_arquivo = "arquivos/grafo_emparelhamento2.txt"
     
     file = os.path.join(system_dir, nome_arquivo)
+
     G, ponderado = ler_grafo_arquivo(file)
 
-    # Conjunto estavel, clique e cobertura de vertices
-    if G is not None and not G.is_directed():
-        conjunto_estavel = conjuntos.conjunto_estavel_guloso(G)
-        cobertura = conjuntos.cobertura_vertices(G, conjunto_estavel)
-        clique = conjuntos.clique_maximal(G)
+    if G is not None and (G.is_directed() or not ponderado):
+        print("\nErro: o Algoritmo Hungaro implementado aceita apenas grafos nao direcionados e ponderados.")
+    elif G is not None and not nx.is_bipartite(G):
+        print("\nErro: o Algoritmo Hungaro implementado aceita apenas grafos bipartidos.")
+    elif G is not None:
+        resultado = emparelhamento.algoritmo_hungaro(G)
+        emparelhamento_otimo, custo_total, matriz, lado_esquerdo, lado_direito = resultado
 
-        pos = nx.spring_layout(G, seed=42)
-
-        conjuntos.visualizar_conjunto_estavel(G, conjunto_estavel, pos)
-        conjuntos.visualizar_clique(G, clique, pos)
-        conjuntos.visualizar_cobertura(G, cobertura, pos)
-
-        print("Conjunto estavel maximal:", conjunto_estavel)
-        print("Clique maximal:", clique)
-        print("Cobertura de vertices:", cobertura)
-    
-    
-    
-
-
+        emparelhamento.imprimir_resultado( emparelhamento_otimo, custo_total, matriz, lado_esquerdo, lado_direito)
+        caminho_saida = emparelhamento.visualizar_emparelhamento( G, emparelhamento_otimo, exibir=False)
+        print(f"\nFigura salva em: {caminho_saida}")
